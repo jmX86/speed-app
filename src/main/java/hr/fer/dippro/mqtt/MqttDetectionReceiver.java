@@ -5,6 +5,7 @@ import org.eclipse.paho.client.mqttv3.*;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 
 public class MqttDetectionReceiver implements Runnable {
@@ -14,15 +15,18 @@ public class MqttDetectionReceiver implements Runnable {
     private MqttClient client;
 
     private boolean running = false;
-    private final BlockingQueue<DeviceData> inQueue;
-    private final HashMap<String, DeviceData> devices;
 
-    public MqttDetectionReceiver(String brokerURL, String clientID, String topic, BlockingQueue<DeviceData> inQueue) {
+    private final BlockingQueue<Long> deviceDetections;
+
+    public MqttDetectionReceiver(
+            String brokerURL,
+            String clientID,
+            String topic,
+            BlockingQueue<Long> deviceDetections) {
         this.brokerURL = brokerURL;
         this.clientID = clientID;
         this.topic = topic;
-        this.inQueue = inQueue;
-        this.devices = new HashMap<>();
+        this.deviceDetections = deviceDetections;
     }
 
     @Override
@@ -54,12 +58,8 @@ public class MqttDetectionReceiver implements Runnable {
                     }else{
                         return;
                     }
-                    DeviceData device = devices.getOrDefault(deviceID, null);
-                    if(device == null){
-                        System.out.println("<"+timestamp+"> "+"No device with id "+deviceID+" found");
-                        return;
-                    }
-                    device.detections().offer(timestamp);
+
+                    deviceDetections.offer(timestamp);
                 }
 
                 @Override
@@ -86,7 +86,4 @@ public class MqttDetectionReceiver implements Runnable {
         running = false;
     }
 
-    public void addDevice(DeviceData device){
-
-    }
 }
