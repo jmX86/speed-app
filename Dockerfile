@@ -3,7 +3,6 @@ LABEL authors="josip"
 
 WORKDIR /app
 
-COPY ./.mvn .mvn
 COPY pom.xml .
 COPY ./src src
 
