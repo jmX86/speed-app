@@ -21,5 +21,5 @@ WORKDIR /app
 EXPOSE 8080
 
 COPY --from=builder /app/target/*.jar /app/app.jar
-
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-cp", "app.jar", "hr.fer.dippro.Main"]
+#ENTRYPOINT ["java", "-jar", "app.jar"]
