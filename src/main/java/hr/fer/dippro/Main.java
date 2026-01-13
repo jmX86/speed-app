@@ -17,7 +17,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
-    private static final String brokerURL = "tcp://dippro-broker-1:1883";
+    private static final String brokerURL = "tcp://broker:1884";
     // "tcp://Mac-mini-od-Josip.local:1884"
     private static final String deviceDetection1 = "ESP32_154130/det";
     private static final String deviceDetection2 = "ESP32_157A00/det";
