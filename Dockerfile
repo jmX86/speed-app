@@ -21,5 +21,6 @@ WORKDIR /app
 EXPOSE 8080
 
 COPY --from=builder /app/target/*.jar /app/app.jar
+COPY --from=builder /app/src/main/resources/csv/vel.csv /app/csv/vel.csv
 ENTRYPOINT ["java", "-cp", "app.jar", "hr.fer.dippro.Main"]
 #ENTRYPOINT ["java", "-jar", "app.jar"]
